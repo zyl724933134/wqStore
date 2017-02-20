@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wqstore.dao.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.wqstore.domain.Product" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_price" property="productPrice" jdbcType="DOUBLE" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="DATE" />
+    <result column="update_date" property="updateDate" jdbcType="DATE" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+    <result column="update_user_id" property="updateUserId" jdbcType="INTEGER" />
+    <result column="stockAmount" property="stockamount" jdbcType="INTEGER" />
+    <result column="PRODUCT_ENAME" property="productEname" jdbcType="VARCHAR" />
+    <result column="PRODUCT_CAN_BE_CHANGE" property="productCanBeChange" jdbcType="INTEGER" />
+    <result column="PRODUCT_CHANGE_DAY" property="productChangeDay" jdbcType="INTEGER" />
+    <result column="PRODUCT_NEED_INSTALLATION" property="productNeedInstallation" jdbcType="INTEGER" />
+    <result column="EAN13" property="ean13" jdbcType="VARCHAR" />
+    <result column="LENGTH" property="length" jdbcType="INTEGER" />
+    <result column="WIDTH" property="width" jdbcType="INTEGER" />
+    <result column="HEIGHT" property="height" jdbcType="INTEGER" />
+    <result column="WEIGHT" property="weight" jdbcType="INTEGER" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="INTEGER" />
+    <result column="VOLUME" property="volume" jdbcType="INTEGER" />
+    <result column="CAN_RETURN_AND_CHANGE" property="canReturnAndChange" jdbcType="INTEGER" />
+    <result column="IS_VTA" property="isVta" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, product_name, product_price, category_id, create_time, update_date, create_user_id, 
+    update_user_id, stockAmount, PRODUCT_ENAME, PRODUCT_CAN_BE_CHANGE, PRODUCT_CHANGE_DAY, 
+    PRODUCT_NEED_INSTALLATION, EAN13, LENGTH, WIDTH, HEIGHT, WEIGHT, IS_DELETED, VOLUME, 
+    CAN_RETURN_AND_CHANGE, IS_VTA
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wqstore.domain.ProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wqstore.domain.ProductExample" >
+    delete from product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wqstore.domain.Product" >
+    insert into product (id, product_name, product_price, 
+      category_id, create_time, update_date, 
+      create_user_id, update_user_id, stockAmount, 
+      PRODUCT_ENAME, PRODUCT_CAN_BE_CHANGE, PRODUCT_CHANGE_DAY, 
+      PRODUCT_NEED_INSTALLATION, EAN13, LENGTH, 
+      WIDTH, HEIGHT, WEIGHT, 
+      IS_DELETED, VOLUME, CAN_RETURN_AND_CHANGE, 
+      IS_VTA)
+    values (#{id,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{productPrice,jdbcType=DOUBLE}, 
+      #{categoryId,jdbcType=INTEGER}, #{createTime,jdbcType=DATE}, #{updateDate,jdbcType=DATE}, 
+      #{createUserId,jdbcType=INTEGER}, #{updateUserId,jdbcType=INTEGER}, #{stockamount,jdbcType=INTEGER}, 
+      #{productEname,jdbcType=VARCHAR}, #{productCanBeChange,jdbcType=INTEGER}, #{productChangeDay,jdbcType=INTEGER}, 
+      #{productNeedInstallation,jdbcType=INTEGER}, #{ean13,jdbcType=VARCHAR}, #{length,jdbcType=INTEGER}, 
+      #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}, 
+      #{isDeleted,jdbcType=INTEGER}, #{volume,jdbcType=INTEGER}, #{canReturnAndChange,jdbcType=INTEGER}, 
+      #{isVta,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wqstore.domain.Product" >
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="productPrice != null" >
+        product_price,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="stockamount != null" >
+        stockAmount,
+      </if>
+      <if test="productEname != null" >
+        PRODUCT_ENAME,
+      </if>
+      <if test="productCanBeChange != null" >
+        PRODUCT_CAN_BE_CHANGE,
+      </if>
+      <if test="productChangeDay != null" >
+        PRODUCT_CHANGE_DAY,
+      </if>
+      <if test="productNeedInstallation != null" >
+        PRODUCT_NEED_INSTALLATION,
+      </if>
+      <if test="ean13 != null" >
+        EAN13,
+      </if>
+      <if test="length != null" >
+        LENGTH,
+      </if>
+      <if test="width != null" >
+        WIDTH,
+      </if>
+      <if test="height != null" >
+        HEIGHT,
+      </if>
+      <if test="weight != null" >
+        WEIGHT,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="volume != null" >
+        VOLUME,
+      </if>
+      <if test="canReturnAndChange != null" >
+        CAN_RETURN_AND_CHANGE,
+      </if>
+      <if test="isVta != null" >
+        IS_VTA,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null" >
+        #{productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=DATE},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="stockamount != null" >
+        #{stockamount,jdbcType=INTEGER},
+      </if>
+      <if test="productEname != null" >
+        #{productEname,jdbcType=VARCHAR},
+      </if>
+      <if test="productCanBeChange != null" >
+        #{productCanBeChange,jdbcType=INTEGER},
+      </if>
+      <if test="productChangeDay != null" >
+        #{productChangeDay,jdbcType=INTEGER},
+      </if>
+      <if test="productNeedInstallation != null" >
+        #{productNeedInstallation,jdbcType=INTEGER},
+      </if>
+      <if test="ean13 != null" >
+        #{ean13,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null" >
+        #{length,jdbcType=INTEGER},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="volume != null" >
+        #{volume,jdbcType=INTEGER},
+      </if>
+      <if test="canReturnAndChange != null" >
+        #{canReturnAndChange,jdbcType=INTEGER},
+      </if>
+      <if test="isVta != null" >
+        #{isVta,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wqstore.domain.ProductExample" resultType="java.lang.Integer" >
+    select count(*) from product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update product
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.productName != null" >
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productPrice != null" >
+        product_price = #{record.productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.categoryId != null" >
+        category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=DATE},
+      </if>
+      <if test="record.updateDate != null" >
+        update_date = #{record.updateDate,jdbcType=DATE},
+      </if>
+      <if test="record.createUserId != null" >
+        create_user_id = #{record.createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateUserId != null" >
+        update_user_id = #{record.updateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockamount != null" >
+        stockAmount = #{record.stockamount,jdbcType=INTEGER},
+      </if>
+      <if test="record.productEname != null" >
+        PRODUCT_ENAME = #{record.productEname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productCanBeChange != null" >
+        PRODUCT_CAN_BE_CHANGE = #{record.productCanBeChange,jdbcType=INTEGER},
+      </if>
+      <if test="record.productChangeDay != null" >
+        PRODUCT_CHANGE_DAY = #{record.productChangeDay,jdbcType=INTEGER},
+      </if>
+      <if test="record.productNeedInstallation != null" >
+        PRODUCT_NEED_INSTALLATION = #{record.productNeedInstallation,jdbcType=INTEGER},
+      </if>
+      <if test="record.ean13 != null" >
+        EAN13 = #{record.ean13,jdbcType=VARCHAR},
+      </if>
+      <if test="record.length != null" >
+        LENGTH = #{record.length,jdbcType=INTEGER},
+      </if>
+      <if test="record.width != null" >
+        WIDTH = #{record.width,jdbcType=INTEGER},
+      </if>
+      <if test="record.height != null" >
+        HEIGHT = #{record.height,jdbcType=INTEGER},
+      </if>
+      <if test="record.weight != null" >
+        WEIGHT = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDeleted != null" >
+        IS_DELETED = #{record.isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.volume != null" >
+        VOLUME = #{record.volume,jdbcType=INTEGER},
+      </if>
+      <if test="record.canReturnAndChange != null" >
+        CAN_RETURN_AND_CHANGE = #{record.canReturnAndChange,jdbcType=INTEGER},
+      </if>
+      <if test="record.isVta != null" >
+        IS_VTA = #{record.isVta,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update product
+    set id = #{record.id,jdbcType=INTEGER},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      product_price = #{record.productPrice,jdbcType=DOUBLE},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=DATE},
+      update_date = #{record.updateDate,jdbcType=DATE},
+      create_user_id = #{record.createUserId,jdbcType=INTEGER},
+      update_user_id = #{record.updateUserId,jdbcType=INTEGER},
+      stockAmount = #{record.stockamount,jdbcType=INTEGER},
+      PRODUCT_ENAME = #{record.productEname,jdbcType=VARCHAR},
+      PRODUCT_CAN_BE_CHANGE = #{record.productCanBeChange,jdbcType=INTEGER},
+      PRODUCT_CHANGE_DAY = #{record.productChangeDay,jdbcType=INTEGER},
+      PRODUCT_NEED_INSTALLATION = #{record.productNeedInstallation,jdbcType=INTEGER},
+      EAN13 = #{record.ean13,jdbcType=VARCHAR},
+      LENGTH = #{record.length,jdbcType=INTEGER},
+      WIDTH = #{record.width,jdbcType=INTEGER},
+      HEIGHT = #{record.height,jdbcType=INTEGER},
+      WEIGHT = #{record.weight,jdbcType=INTEGER},
+      IS_DELETED = #{record.isDeleted,jdbcType=INTEGER},
+      VOLUME = #{record.volume,jdbcType=INTEGER},
+      CAN_RETURN_AND_CHANGE = #{record.canReturnAndChange,jdbcType=INTEGER},
+      IS_VTA = #{record.isVta,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wqstore.domain.Product" >
+    update product
+    <set >
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null" >
+        product_price = #{productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=DATE},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="stockamount != null" >
+        stockAmount = #{stockamount,jdbcType=INTEGER},
+      </if>
+      <if test="productEname != null" >
+        PRODUCT_ENAME = #{productEname,jdbcType=VARCHAR},
+      </if>
+      <if test="productCanBeChange != null" >
+        PRODUCT_CAN_BE_CHANGE = #{productCanBeChange,jdbcType=INTEGER},
+      </if>
+      <if test="productChangeDay != null" >
+        PRODUCT_CHANGE_DAY = #{productChangeDay,jdbcType=INTEGER},
+      </if>
+      <if test="productNeedInstallation != null" >
+        PRODUCT_NEED_INSTALLATION = #{productNeedInstallation,jdbcType=INTEGER},
+      </if>
+      <if test="ean13 != null" >
+        EAN13 = #{ean13,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null" >
+        LENGTH = #{length,jdbcType=INTEGER},
+      </if>
+      <if test="width != null" >
+        WIDTH = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        HEIGHT = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        WEIGHT = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="volume != null" >
+        VOLUME = #{volume,jdbcType=INTEGER},
+      </if>
+      <if test="canReturnAndChange != null" >
+        CAN_RETURN_AND_CHANGE = #{canReturnAndChange,jdbcType=INTEGER},
+      </if>
+      <if test="isVta != null" >
+        IS_VTA = #{isVta,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wqstore.domain.Product" >
+    update product
+    set product_name = #{productName,jdbcType=VARCHAR},
+      product_price = #{productPrice,jdbcType=DOUBLE},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=DATE},
+      update_date = #{updateDate,jdbcType=DATE},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      update_user_id = #{updateUserId,jdbcType=INTEGER},
+      stockAmount = #{stockamount,jdbcType=INTEGER},
+      PRODUCT_ENAME = #{productEname,jdbcType=VARCHAR},
+      PRODUCT_CAN_BE_CHANGE = #{productCanBeChange,jdbcType=INTEGER},
+      PRODUCT_CHANGE_DAY = #{productChangeDay,jdbcType=INTEGER},
+      PRODUCT_NEED_INSTALLATION = #{productNeedInstallation,jdbcType=INTEGER},
+      EAN13 = #{ean13,jdbcType=VARCHAR},
+      LENGTH = #{length,jdbcType=INTEGER},
+      WIDTH = #{width,jdbcType=INTEGER},
+      HEIGHT = #{height,jdbcType=INTEGER},
+      WEIGHT = #{weight,jdbcType=INTEGER},
+      IS_DELETED = #{isDeleted,jdbcType=INTEGER},
+      VOLUME = #{volume,jdbcType=INTEGER},
+      CAN_RETURN_AND_CHANGE = #{canReturnAndChange,jdbcType=INTEGER},
+      IS_VTA = #{isVta,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

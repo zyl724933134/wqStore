@@ -1,0 +1,46 @@
+/*!
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+
+/* 覆盖bootstrap样式 */
+
+.fixed-table-body {
+    overflow-x: auto;
+    overflow-y: auto;
+    height: auto;
+}
+
+/* label.error { */
+/*     color: red; */
+/* } */
+
+@media (min-width: 992px) {
+	.modal-lg {
+	    width: 900px;
+	}
+}
+
+body {
+	overflow-x: hidden;
+	overflow-y: scroll;
+/* 	padding-right: 0px !important; */
+}
+
+
+label.error{
+    text-align: left;
+    margin-left: 5px;
+    padding-left: 20px;
+    color: red;
+}
+
+/* label.tip{ */
+/*     color: #aaa; */
+/*     background: url('tip.png') no-repeat left center; */
+/* } */
+
+/* label.valid{ */
+/*     background: url('valid.png') no-repeat left center; */
+/*     width: 32px; */
+/* } */

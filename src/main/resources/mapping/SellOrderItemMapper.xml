@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wqstore.dao.SellOrderItemMapper" >
+  <resultMap id="BaseResultMap" type="com.wqstore.domain.SellOrderItem" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="end_user_id" property="endUserId" jdbcType="BIGINT" />
+    <result column="so_id" property="soId" jdbcType="BIGINT" />
+    <result column="product_id" property="productId" jdbcType="BIGINT" />
+    <result column="merchant_id" property="merchantId" jdbcType="BIGINT" />
+    <result column="item_amount" property="itemAmount" jdbcType="DECIMAL" />
+    <result column="item_deal_amount" property="itemDealAmount" jdbcType="DECIMAL" />
+    <result column="market_price" property="marketPrice" jdbcType="DECIMAL" />
+    <result column="item_sale_price" property="itemSalePrice" jdbcType="DECIMAL" />
+    <result column="item_num" property="itemNum" jdbcType="BIGINT" />
+    <result column="product_cname" property="productCname" jdbcType="VARCHAR" />
+    <result column="product_ename" property="productEname" jdbcType="VARCHAR" />
+    <result column="product_pic_url" property="productPicUrl" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, end_user_id, so_id, product_id, merchant_id, item_amount, item_deal_amount, market_price, 
+    item_sale_price, item_num, product_cname, product_ename, product_pic_url, create_time, 
+    update_time, is_deleted
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wqstore.domain.SellOrderItemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sell_order_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sell_order_item
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sell_order_item
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wqstore.domain.SellOrderItemExample" >
+    delete from sell_order_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wqstore.domain.SellOrderItem" >
+    insert into sell_order_item (id, end_user_id, so_id, 
+      product_id, merchant_id, item_amount, 
+      item_deal_amount, market_price, item_sale_price, 
+      item_num, product_cname, product_ename, 
+      product_pic_url, create_time, update_time, 
+      is_deleted)
+    values (#{id,jdbcType=BIGINT}, #{endUserId,jdbcType=BIGINT}, #{soId,jdbcType=BIGINT}, 
+      #{productId,jdbcType=BIGINT}, #{merchantId,jdbcType=BIGINT}, #{itemAmount,jdbcType=DECIMAL}, 
+      #{itemDealAmount,jdbcType=DECIMAL}, #{marketPrice,jdbcType=DECIMAL}, #{itemSalePrice,jdbcType=DECIMAL}, 
+      #{itemNum,jdbcType=BIGINT}, #{productCname,jdbcType=VARCHAR}, #{productEname,jdbcType=VARCHAR}, 
+      #{productPicUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wqstore.domain.SellOrderItem" >
+    insert into sell_order_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="endUserId != null" >
+        end_user_id,
+      </if>
+      <if test="soId != null" >
+        so_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="merchantId != null" >
+        merchant_id,
+      </if>
+      <if test="itemAmount != null" >
+        item_amount,
+      </if>
+      <if test="itemDealAmount != null" >
+        item_deal_amount,
+      </if>
+      <if test="marketPrice != null" >
+        market_price,
+      </if>
+      <if test="itemSalePrice != null" >
+        item_sale_price,
+      </if>
+      <if test="itemNum != null" >
+        item_num,
+      </if>
+      <if test="productCname != null" >
+        product_cname,
+      </if>
+      <if test="productEname != null" >
+        product_ename,
+      </if>
+      <if test="productPicUrl != null" >
+        product_pic_url,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="endUserId != null" >
+        #{endUserId,jdbcType=BIGINT},
+      </if>
+      <if test="soId != null" >
+        #{soId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="itemAmount != null" >
+        #{itemAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="itemDealAmount != null" >
+        #{itemDealAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="marketPrice != null" >
+        #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="itemSalePrice != null" >
+        #{itemSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="itemNum != null" >
+        #{itemNum,jdbcType=BIGINT},
+      </if>
+      <if test="productCname != null" >
+        #{productCname,jdbcType=VARCHAR},
+      </if>
+      <if test="productEname != null" >
+        #{productEname,jdbcType=VARCHAR},
+      </if>
+      <if test="productPicUrl != null" >
+        #{productPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wqstore.domain.SellOrderItemExample" resultType="java.lang.Integer" >
+    select count(*) from sell_order_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sell_order_item
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.endUserId != null" >
+        end_user_id = #{record.endUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.soId != null" >
+        so_id = #{record.soId,jdbcType=BIGINT},
+      </if>
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=BIGINT},
+      </if>
+      <if test="record.merchantId != null" >
+        merchant_id = #{record.merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="record.itemAmount != null" >
+        item_amount = #{record.itemAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemDealAmount != null" >
+        item_deal_amount = #{record.itemDealAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.marketPrice != null" >
+        market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemSalePrice != null" >
+        item_sale_price = #{record.itemSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemNum != null" >
+        item_num = #{record.itemNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.productCname != null" >
+        product_cname = #{record.productCname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productEname != null" >
+        product_ename = #{record.productEname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productPicUrl != null" >
+        product_pic_url = #{record.productPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDeleted != null" >
+        is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sell_order_item
+    set id = #{record.id,jdbcType=BIGINT},
+      end_user_id = #{record.endUserId,jdbcType=BIGINT},
+      so_id = #{record.soId,jdbcType=BIGINT},
+      product_id = #{record.productId,jdbcType=BIGINT},
+      merchant_id = #{record.merchantId,jdbcType=BIGINT},
+      item_amount = #{record.itemAmount,jdbcType=DECIMAL},
+      item_deal_amount = #{record.itemDealAmount,jdbcType=DECIMAL},
+      market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      item_sale_price = #{record.itemSalePrice,jdbcType=DECIMAL},
+      item_num = #{record.itemNum,jdbcType=BIGINT},
+      product_cname = #{record.productCname,jdbcType=VARCHAR},
+      product_ename = #{record.productEname,jdbcType=VARCHAR},
+      product_pic_url = #{record.productPicUrl,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      is_deleted = #{record.isDeleted,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wqstore.domain.SellOrderItem" >
+    update sell_order_item
+    <set >
+      <if test="endUserId != null" >
+        end_user_id = #{endUserId,jdbcType=BIGINT},
+      </if>
+      <if test="soId != null" >
+        so_id = #{soId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="merchantId != null" >
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="itemAmount != null" >
+        item_amount = #{itemAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="itemDealAmount != null" >
+        item_deal_amount = #{itemDealAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="marketPrice != null" >
+        market_price = #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="itemSalePrice != null" >
+        item_sale_price = #{itemSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="itemNum != null" >
+        item_num = #{itemNum,jdbcType=BIGINT},
+      </if>
+      <if test="productCname != null" >
+        product_cname = #{productCname,jdbcType=VARCHAR},
+      </if>
+      <if test="productEname != null" >
+        product_ename = #{productEname,jdbcType=VARCHAR},
+      </if>
+      <if test="productPicUrl != null" >
+        product_pic_url = #{productPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wqstore.domain.SellOrderItem" >
+    update sell_order_item
+    set end_user_id = #{endUserId,jdbcType=BIGINT},
+      so_id = #{soId,jdbcType=BIGINT},
+      product_id = #{productId,jdbcType=BIGINT},
+      merchant_id = #{merchantId,jdbcType=BIGINT},
+      item_amount = #{itemAmount,jdbcType=DECIMAL},
+      item_deal_amount = #{itemDealAmount,jdbcType=DECIMAL},
+      market_price = #{marketPrice,jdbcType=DECIMAL},
+      item_sale_price = #{itemSalePrice,jdbcType=DECIMAL},
+      item_num = #{itemNum,jdbcType=BIGINT},
+      product_cname = #{productCname,jdbcType=VARCHAR},
+      product_ename = #{productEname,jdbcType=VARCHAR},
+      product_pic_url = #{productPicUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
